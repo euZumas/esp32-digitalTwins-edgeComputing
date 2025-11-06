@@ -1,0 +1,15 @@
+.icon {
+    width: 14px;
+    height: 14px;
+    color: #fff;
+}
+
+.forgot {
+    color: #878CA8;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.forgot:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,28 @@
+.container {
+    width: 35rem;
+    padding: 2rem 3rem;
+    gap: 15px;
+}
+
+#emailAddress {
+    color: #7B97E3;
+    font-weight: bold;
+}
+
+.disabled-button {
+  pointer-events: none;
+  opacity: 50%;
+}
+
+#spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid #7B97E3;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+    to {transform: rotate(360deg);}
+}

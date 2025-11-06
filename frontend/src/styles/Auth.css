@@ -1,0 +1,112 @@
+main {
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+}
+
+.container {
+    align-items: center;
+    justify-content: center;
+    width: 32.5rem;
+    padding: 2rem 5rem;
+    background-color: #172336;
+    border: #333C4B solid 2px;
+    border-radius: 20px;
+    gap: 10px;
+}
+
+
+.container h1 {
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.container .input-field {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    margin: 20px auto;
+    font-size: 1rem;
+}
+
+.input-field input {
+    height: 100%;
+    width: 100%;
+    background-color: #25334A;
+    outline: none;
+    padding: 1.2rem;
+    font-size: .9rem;
+    border-radius: 7.8px;
+    border: none;
+    font-weight: 300;
+}
+
+.input-field input::placeholder {
+    color: #fff;
+}
+
+.container button {
+    align-items: center;
+    justify-content: center;
+    width: 65%;
+    height: 100%;
+    padding: .6rem 0;
+    gap: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #1E3F7D;
+    border-radius: 11px;
+    margin-top: 25px;
+}
+
+.container button span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.links-session {
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: .8rem;
+}
+
+
+.links-session .register-login {
+    color: #C6C6C6;
+    font-weight: bold;
+
+} 
+
+.links-session .register-login a {
+    text-decoration: none;
+    color: #7B97E3;
+}
+
+.register-login a:hover{
+    text-decoration: underline;
+}
+
+.back-button {
+    gap: 8px;
+    text-decoration: none;
+}
+
+/* AREAS UNICAS */
+
+.txt {
+  margin: 10px 0 0 0;
+  text-align: center;
+  line-height: 1.3rem;
+}
+
+.back-wrapper {
+    align-self: flex-start;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.back-wrapper a:hover {
+    text-decoration: underline;
+}
