@@ -393,19 +393,26 @@ const PasswordChange = async (req, res) => {
             return res.status(410).json({ msg: "Registro de redefinição de senha expirou!" })
         }
 
-        // 4. Compara o resetString da URL com o hash salvo
+        // 4. Invalida todas as solicitações anteriores
+        await PasswordReset.deleteMany({ 
+            userId, 
+            _id: { $ne: passwordResetId } 
+        })
+
+        // 5. Compara o resetString da URL com o hash salvo
         const isMatch = await bcrypt.compare(resetString, hashedResetString)
         if (!isMatch) {
+            await PasswordReset.deleteMany({ userId })
             return res.status(400).json({ msg: "Detalhes de reset password string inválidos!" })
         }
 
-        // 5. Criptografa a nova senha
+        // 6. Criptografa a nova senha
         const hashNewPassword = await bcrypt.hash(newPassword, 10)
 
-        // 6. Atualiza senha do usuário
+        // 7. Atualiza senha do usuário
         await User.updateOne({ _id: userId }, { password: hashNewPassword })
 
-        // 7. Remove registro de redefinição usado
+        // 8. Remove registro de redefinição usado
         await PasswordReset.deleteOne({ _id: passwordResetId })
 
         return res.status(200).json({ msg: "Senha alterada com sucesso!" })

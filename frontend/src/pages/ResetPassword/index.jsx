@@ -32,7 +32,7 @@ const ResetPassword = () => {
     }
 
     return (
-        <main onSubmit={changePassword} className="flex-c">
+        <main onSubmit={changePassword} className="flex-c main">
             <ToastContainer />
             <form className="container flex-c">
                 <Logo />

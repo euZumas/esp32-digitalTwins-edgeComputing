@@ -1,0 +1,274 @@
+/* Garante que o layout ocupe a tela inteira */
+html, body, #root {
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Remove qualquer scroll geral */
+body {
+    overflow: hidden;
+}
+
+header {
+    display: flex;
+    width: 100%;
+    height: 6rem;
+    background-color: rgba(26, 36, 36, 64%);
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+}
+
+header .enviroment {
+    align-items: center;
+    justify-content: center;
+}
+
+.enviroment label {
+    font-size: .8rem;
+}
+
+.enviroment select {
+    font-size: 2rem;
+    color: #fff;
+    background: none;
+    border: none;  
+}
+
+.enviroment option {
+    color: #000;
+    font-size: 1.2rem;
+}
+
+header button {
+    background: none;
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+header button:hover {
+    background-color: rgba(198, 198, 198, 5%)
+}
+
+main {
+    width: 100%;
+    overflow: hidden;
+    padding: 3rem 5rem;
+}
+
+#section1 {
+    width: 60%;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2rem;
+    overflow-y: auto;
+    margin-right: 2rem;
+}
+
+#alert {
+    height: 7rem;
+    width: 80%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+}
+
+#alert img {
+    height: 5.6rem;
+    width: 3.8rem;
+    transform: scaleX(-1);
+}
+
+#alert small {
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    margin-left: 30px;
+    font-weight: bold;
+}
+
+#control-panel-box {
+    width: 80%;
+    height: 16rem;
+    justify-content: space-evenly;
+    padding: 0 20px;
+}
+
+#control-panel-box small {
+    font-size: 1.1rem;
+}
+
+#control-panel-box hr {
+    border: .5px solid #727272;
+}
+
+
+#control-panel h2 {
+    margin: 1.2rem 0;
+}
+
+#control-panel {
+    gap: 1.2rem;
+}
+
+#active {
+    font-size: 5rem;
+}
+
+.al-center {
+    align-items: center;
+}
+
+.jc-center {
+    justify-content: center;
+}
+
+.jc-between {
+    justify-content: space-between;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.h-border {
+    border: #727272 solid 2px;
+    border-radius: 1rem;
+}
+
+.h-icon {
+    height: 1.6rem;
+    width: 1.6rem;
+}
+
+.gap {
+    gap: 15px;
+}
+
+/* Switch styling */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: rgba(251, 66, 66, 35%);
+    border-radius: 24px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #55AF58; /* cor quando ligado */
+}
+
+input:checked + .slider::before {
+    transform: translateX(26px);
+}
+
+#section2 {
+    width: 40%;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 0 1.2rem 0;
+}
+
+#section2 h2 {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+
+/* Container com altura fixa e scroll interno */
+.activities-container {
+width: 90%;
+max-height: 37.3rem;
+overflow-y: auto;
+padding-right: 0.4rem; 
+}
+
+/* Remove scroll desnecessário fora da área */
+.activities-container::-webkit-scrollbar {
+width: 6px;
+}
+
+.activities-container::-webkit-scrollbar-thumb {
+background: rgba(255, 255, 255, 0.25);
+border-radius: 6px;
+}
+
+/* Wrapper que contém as atividades */
+.activities-wrapper {
+display: flex;
+flex-direction: column;
+gap: 10px;        
+width: 100%;
+}
+
+/* Cada bloco de atividade */
+.active-box {
+width: 100%;
+background-color: #25334A;
+border-radius: 0.8rem;
+padding: 12px;
+flex-shrink: 0; 
+margin: 8px 0;
+}   
+
+/* 🔹 Linha de status fixa (impede "pulos" de layout) */
+.status-row {
+  min-height: 2rem; /* fixa a altura do container */
+}
+
+.status-text {
+  width: 140px; /* largura fixa pra evitar reflow */
+  display: inline-block;
+  text-align: left;
+}
+
+.status-fixed {
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#activity-chart {
+  width: 80%;
+  height: 20rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  text-align: center;
+}
+
+#activity-chart h2 {
+  margin-bottom: 1rem;
+}
+

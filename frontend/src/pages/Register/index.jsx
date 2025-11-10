@@ -39,7 +39,7 @@ const Register = () => {
     }
 
     return (
-        <main className="flex-c">
+        <main className="flex-c main">
             <ToastContainer />
             <form className="container flex-c" onSubmit={createUser}>
                 <Logo />
@@ -47,7 +47,7 @@ const Register = () => {
                 <h1> Crie sua conta </h1>
 
                 <div className="input-field flex-c">
-                    <label> Usuário </label>
+                    <label> Nome </label>
                     <input type="text" placeholder="Digite o seu nome de usuário" 
                     value={name}
                     onChange={(e) => setName(e.target.value)}/>

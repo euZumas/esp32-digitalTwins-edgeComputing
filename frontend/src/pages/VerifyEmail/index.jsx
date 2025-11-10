@@ -24,7 +24,7 @@ const ForgotPassword = () => {
     }
 
     return (
-        <main className="flex-c">
+        <main className="flex-c main">
             <ToastContainer />
 
             <form className="container flex-c">

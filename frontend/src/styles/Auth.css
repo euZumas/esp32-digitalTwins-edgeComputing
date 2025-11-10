@@ -1,4 +1,4 @@
-main {
+.main {
     align-items: center;
     justify-content: center;
     min-height: 100dvh;
@@ -14,7 +14,6 @@ main {
     border-radius: 20px;
     gap: 10px;
 }
-
 
 .container h1 {
     font-size: 1.3rem;

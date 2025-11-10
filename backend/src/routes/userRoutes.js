@@ -27,4 +27,9 @@ router.post('/auth/password/reset/:userId/:resetString', PasswordChange)
 // Rotas privadas
 router.get('/user/profile', checkToken, perfil)
 
+// Bloqueia rota raiz (home) para não logados
+router.get('/', checkToken, (req, res) => {
+    res.status(200).json({ msg: "Bem-vindo à página inicial protegida!" })
+})
+
 module.exports = router

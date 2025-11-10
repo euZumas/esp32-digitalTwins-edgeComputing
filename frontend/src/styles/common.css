@@ -10,10 +10,11 @@
 }
 
 body {
-  width: 100dvw;
-  height: 100dvh;
-  background-image: linear-gradient(to bottom, #172336, #1E3F7D);
-  background-repeat: no-repeat;
+    width: 100%;
+    min-height: 100dvh;
+    background-image: linear-gradient(to bottom, #172336, #1E3F7D);
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* mantém o gradiente fixo */
 }
 
 .flex {
