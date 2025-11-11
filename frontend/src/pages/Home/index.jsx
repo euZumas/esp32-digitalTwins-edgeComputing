@@ -22,28 +22,38 @@ const Home = () => {
   const [activities, setActivities] = useState([]);
   const [room, setRoom] = useState("Carregando...");
   const [espOnline, setEspOnline] = useState(false);
-  const [silentMode, setSilentMode] = useState(false);
   const [motionDetected, setMotionDetected] = useState(false);
   const mounted = useRef(true);
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
   const [isSilent, setIsSilent] = useState(false);
 
+  const fetchBuzzerState = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/buzzer`);
+      if (res.ok) {
+        const json = await res.json();
+        setIsSilent(!json.enabled); // se "enabled" = true → som ativo
+      }
+    } catch (error) {
+      console.error("Erro ao buscar estado do buzzer:", error);
+    }
+  };
+
   const toggleSilentMode = async () => {
-  const newState = !isSilent;
-  setIsSilent(newState);
+    const newState = !isSilent;
+    setIsSilent(newState);
+    try {
+      const res = await fetch(`${API_URL}/api/buzzer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ enabled: !newState }) // invertido
+      });
+      if (!res.ok) throw new Error("Falha ao atualizar buzzer");
+    } catch (error) {
+      console.error("Erro ao alternar buzzer:", error);
+    }
+  };
 
-  try {
-    const ESP_IP = "http://10.159.24.47"; // 👈 coloque aqui o IP atual do ESP32
-    const response = await fetch(`${ESP_IP}/api/sensor/silent?silent=${newState}`, {
-      method: "POST",
-    });
-
-    if (!response.ok) throw new Error("Falha ao atualizar modo silencioso");
-    console.log("Modo silencioso atualizado:", newState);
-  } catch (err) {
-    console.error("Erro ao enviar modo silencioso:", err);
-  }
-};
 
 
   useEffect(() => {
@@ -57,6 +67,7 @@ const Home = () => {
     if (h1) h1.innerText = `Olá, ${firstName}`;
 
     fetchAll();
+    fetchBuzzerState();
     const interval = setInterval(fetchAll, POLL_MS);
     return () => { mounted.current = false; clearInterval(interval); }
   }, [navigate]);
@@ -144,7 +155,7 @@ const Home = () => {
   };
 
 
-  // 🔹 Dados agrupados para o gráfico
+  // Dados agrupados para o gráfico
   const chartData = Object.values(
     activities.reduce((acc, cur) => {
       const key = cur.room || "Indefinido";
@@ -205,7 +216,7 @@ const Home = () => {
               </span>
 
               <span className="flex gap al-center">
-                {silentMode ? <IoMdVolumeOff className="h-icon text-red" /> : <IoMdVolumeHigh className="h-icon" />}
+                {isSilent ? <IoMdVolumeOff className="h-icon text-red" /> : <IoMdVolumeHigh className="h-icon" />}
                 <small>{isSilent ? "Modo silencioso" : "Som ativo"}</small>
               </span>
 
@@ -219,7 +230,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* 🔹 Gráfico de atividades por ambiente */}
+          {/* Gráfico de atividades por ambiente */}
           <div id="activity-chart" className="flex-c h-border">
             <h2>Atividades por Ambiente</h2>
             {chartData.length === 0 ? (
@@ -241,19 +252,7 @@ const Home = () => {
                       fontSize: '0.875rem'
                     }}
                     cursor={{ fill: 'rgba(255,255,255,0.05)' }}
-                  />
-
-
-
-
-
-
-
-
-
-
-
-                  
+                  />                 
                   <Bar dataKey="count" fill="#7B97E3" barSize={40} radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>

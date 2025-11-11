@@ -4,6 +4,7 @@ const express = require('express')
 const connectDB = require('./config/db')
 const userRoutes = require('./routes/userRoutes') 
 const sensorRoutes = require('./routes/sensorRoutes') 
+const buzzerRoutes = require('./routes/buzzerRoutes') 
 const cors = require('cors')
 
 const app = express()
@@ -19,7 +20,7 @@ connectDB()
 // Rotas
 app.use('/', userRoutes)
 app.use('/', sensorRoutes)
-app.use('/', buzzerRoutes
+app.use('/', buzzerRoutes)
 
 
 const port = process.env.PORT
