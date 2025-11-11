@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer
-} from 'recharts';
+} from 'recharts';  
 
 import hare1 from '../../assets/coelho-sprite1.png';
 import hare2 from '../../assets/coelho-sprite2.png';
@@ -25,6 +25,26 @@ const Home = () => {
   const [silentMode, setSilentMode] = useState(false);
   const [motionDetected, setMotionDetected] = useState(false);
   const mounted = useRef(true);
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+  const [isSilent, setIsSilent] = useState(false);
+
+  const toggleSilentMode = async () => {
+  const newState = !isSilent;
+  setIsSilent(newState);
+
+  try {
+    const ESP_IP = "http://10.159.24.47"; // 👈 coloque aqui o IP atual do ESP32
+    const response = await fetch(`${ESP_IP}/api/sensor/silent?silent=${newState}`, {
+      method: "POST",
+    });
+
+    if (!response.ok) throw new Error("Falha ao atualizar modo silencioso");
+    console.log("Modo silencioso atualizado:", newState);
+  } catch (err) {
+    console.error("Erro ao enviar modo silencioso:", err);
+  }
+};
+
 
   useEffect(() => {
     mounted.current = true;
@@ -41,13 +61,13 @@ const Home = () => {
     return () => { mounted.current = false; clearInterval(interval); }
   }, [navigate]);
 
-  async function fetchAll() {
-    await Promise.all([fetchRoom(), fetchActivities(), checkEspConnection()]);
-  }
+    async function fetchAll() {
+      await Promise.all([fetchRoom(), fetchActivities(), checkEspConnection()]);
+    }
 
-  const fetchRoom = async () => {
+    const fetchRoom = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/sensor/room');
+      const res = await fetch(`${API_URL}/api/sensor/room`);
       if (!res.ok) throw new Error('room fetch failed');
       const json = await res.json();
       if (mounted.current) setRoom(json.room || "Indefinido");
@@ -60,7 +80,7 @@ const Home = () => {
   const handleRoomChange = async (e) => {
     const selectedRoom = e.target.value;
     try {
-      await fetch('http://localhost:3000/api/sensor/room', {
+      await fetch(`${API_URL}/api/sensor/room`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ room: selectedRoom })
@@ -73,15 +93,15 @@ const Home = () => {
 
   const fetchActivities = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/sensor/active?limit=50');
+      const res = await fetch(`${API_URL}/api/sensor/active`);
       if (!res.ok) {
-        console.error("fetchActivities: resposta não-ok", res.error);
+        console.error("fetchActivities: resposta não-ok", res.status);
         setActivities([]);
         return;
       }
       const data = await res.json();
 
-      // 🔹 Atualiza alerta de movimento conforme o último registro
+      // Atualiza alerta de movimento
       if (data && data.length > 0) {
         const latest = data[0];
         if (latest.motion === true && latest.duration == null) {
@@ -116,12 +136,13 @@ const Home = () => {
 
   const checkEspConnection = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/sensor'); // ping simples
+      const res = await fetch(`${API_URL}/api/sensor`); // ping simples
       if (mounted.current) setEspOnline(res.ok);
     } catch (error) {
       if (mounted.current) setEspOnline(false);
     }
   };
+
 
   // 🔹 Dados agrupados para o gráfico
   const chartData = Object.values(
@@ -185,13 +206,13 @@ const Home = () => {
 
               <span className="flex gap al-center">
                 {silentMode ? <IoMdVolumeOff className="h-icon text-red" /> : <IoMdVolumeHigh className="h-icon" />}
-                <small>{silentMode ? "Modo silencioso" : "Som ativo"}</small>
+                <small>{isSilent ? "Modo silencioso" : "Som ativo"}</small>
               </span>
 
               <div className="flex al-center gap">
                 <small>Silenciar buzzer</small>
                 <label className="switch">
-                  <input type="checkbox" checked={silentMode} onChange={() => setSilentMode(s => !s)} />
+                  <input type="checkbox" checked={isSilent} onChange={toggleSilentMode} />
                   <span className="slider"></span>
                 </label>
               </div>

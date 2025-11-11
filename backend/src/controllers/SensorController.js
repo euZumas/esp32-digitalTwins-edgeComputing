@@ -88,8 +88,7 @@ const getSensorData = async (req, res) => {
 // Apenas ativos
 const getActiveSensorData = async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit) || 50
-    const data = await Sensor.find({ motion: true }).sort({ createdAt: -1 }).limit(limit)
+    const data = await Sensor.find({ motion: true }).sort({ createdAt: -1 })
     res.status(200).json(data)
   } catch (error) {
     res.status(500).json({ msg: "Erro ao buscar dados ativos" })

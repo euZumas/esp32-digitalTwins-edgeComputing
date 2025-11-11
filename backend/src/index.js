@@ -19,6 +19,7 @@ connectDB()
 // Rotas
 app.use('/', userRoutes)
 app.use('/', sensorRoutes)
+app.use('/', buzzerRoutes
 
 
 const port = process.env.PORT
