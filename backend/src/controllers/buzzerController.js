@@ -1,14 +1,10 @@
-const fetch = require('node-fetch');   // Certifique-se de que foi “npm install node-fetch”
-
 /** Estado atual do buzzer (true = ativo, false = silenciado) */
 let buzzerEnabled = true;
 
-/** Retorna o estado atual do buzzer */
 const getBuzzerState = (req, res) => {
   res.json({ enabled: buzzerEnabled });
 };
 
-/** Atualiza o estado do buzzer e envia comando ao ESP32 */
 const setBuzzerState = async (req, res) => {
   try {
     const { enabled } = req.body;
@@ -19,24 +15,22 @@ const setBuzzerState = async (req, res) => {
     buzzerEnabled = enabled;
     console.log(`🔔 Buzzer agora está ${enabled ? 'ATIVO' : 'SILENCIADO'}`);
 
-    const ESP_IP = process.env.ESP_IP || 'http://10.224.72.146:3000';
+    const ESP_IP = process.env.ESP_IP || 'http://172.24.178.47:4000';
     const silent = !enabled;
-    const url = `${ESP_IP}/api/sensor/silent?silent=${silent}`;
+    const url = `${ESP_IP}/api/sensor/silent`;
 
-    console.log(`➡️ Enviando comando para ESP32: ${url}`);
+    console.log(`➡️ Enviando comando para ESP32: ${url} (silent=${silent})`);
 
     const response = await fetch(url, {
-      method: 'POST'
-      // Se seu ESP32 espera headers ou body JSON, adicione aqui:
-      // headers: { 'Content-Type': 'application/json' },
-      // body: JSON.stringify({ silent })
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `silent=${silent}`
     });
 
-    if (!response.ok) {
-      const text = await response.text();
-      console.error("Resposta inválida do ESP32:", response.status, text);
-      throw new Error(`ESP32 respondeu com status ${response.status}`);
-    }
+    const text = await response.text();
+    console.log('📡 Resposta do ESP32:', text);
+
+    if (!response.ok) throw new Error(`ESP32 respondeu com status ${response.status}`);
 
     return res.json({ message: 'Estado do buzzer atualizado', enabled });
   } catch (error) {
@@ -45,7 +39,4 @@ const setBuzzerState = async (req, res) => {
   }
 };
 
-module.exports = {
-  getBuzzerState,
-  setBuzzerState
-};
+module.exports = { getBuzzerState, setBuzzerState };
