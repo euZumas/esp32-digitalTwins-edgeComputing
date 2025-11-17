@@ -40,8 +40,9 @@ Frontend (React):
 (executar no terminal)
 
 Backend:
-  cd backend
-  npm install
+-
+  1. cd backend
+  2. npm install
 
 Dependências Principais:
   1. express
@@ -54,8 +55,9 @@ Dependências Principais:
   8. nodemailer
 
 Frontend:
-  cd frontend
-  npm install
+-
+  1. cd frontend
+  2. npm install
 
 Dependências Principais:
   1. react
@@ -74,21 +76,21 @@ Dependências Principais:
 
 Backend: 
 -
-  DB_USER = <DB_USER>; 
-  DB_PASS = <DB_PASSWORD>;
-  SECRET =  UGHIKH845IUGT7u6t67576tg12jhguyYUT876;
-  PORT = 3000;
-  AUTH_EMAIL = twinhareunisa@gmail.com;
-  AUTH_PASS = dtwt exun jord lcxz;
+  1. DB_USER = <DB_USER>; 
+  2. DB_PASS = <DB_PASSWORD>;
+  3. SECRET =  UGHIKH845IUGT7u6t67576tg12jhguyYUT876;
+  4. PORT = 3000;
+  5. AUTH_EMAIL = twinhareunisa@gmail.com;
+  6. AUTH_PASS = dtwt exun jord lcxz;
 
 Frontend:
 -
-  VITE_API_URL: http://<IP_ESP32>:3000;
+  1. VITE_API_URL: http://<IP_ESP32>:3000;
 
 ESP32:
 -
-  const char* ssid= <"NOME_REDE">;
-  const char* password = <"SENHA_REDE">;
+  1. const char* ssid= <"NOME_REDE">;
+  2. const char* password = <"SENHA_REDE">;
 
 ------------------ COMO RODAR ------------------
 -
@@ -96,12 +98,12 @@ ESP32:
 
 Backend:
 -
-  cd backend
+  cd backend, 
   npm start
 
 Frontend:
 -
-  cd frontend
+  cd frontend, 
   npm run dev
 
 
