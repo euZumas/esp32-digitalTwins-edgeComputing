@@ -73,18 +73,21 @@ Dependências Principais:
 (OBS: Necessário que a aplicação e a controladora estejam rodando na mesma rede)
 
 Backend: 
-  DB_USER = <DB_USER>
-  DB_PASS = <DB_PASSWORD>
-  SECRET =  UGHIKH845IUGT7u6t67576tg12jhguyYUT876
-  PORT = 3000
-  AUTH_EMAIL = twinhareunisa@gmail.com
-  AUTH_PASS = dtwt exun jord lcxz 
+-
+  DB_USER = <DB_USER>; 
+  DB_PASS = <DB_PASSWORD>;
+  SECRET =  UGHIKH845IUGT7u6t67576tg12jhguyYUT876;
+  PORT = 3000;
+  AUTH_EMAIL = twinhareunisa@gmail.com;
+  AUTH_PASS = dtwt exun jord lcxz;
 
 Frontend:
-  VITE_API_URL: http://<IP_ESP32>:3000
+-
+  VITE_API_URL: http://<IP_ESP32>:3000;
 
 ESP32:
-  const char* ssid = <"NOME_REDE">;
+-
+  const char* ssid= <"NOME_REDE">;
   const char* password = <"SENHA_REDE">;
 
 ------------------ COMO RODAR ------------------
@@ -92,10 +95,12 @@ ESP32:
 (OBS: Os testes foram feitos utilizando Arduino IDE para microcontroladora ESP32 e VS Code para aplicação)
 
 Backend:
+-
   cd backend
   npm start
 
 Frontend:
+-
   cd frontend
   npm run dev
 
@@ -255,14 +260,14 @@ Fluxo de autenticação
 ------------------ CHECKLIST ------------------
 -
 
-✔ ESP32 conectado ao Wi-Fi
-✔ IP colocado no .env
-✔ Backend online
-✔ Front-end acessando API
-✔ Buzzer responde no modo silencioso
-✔ Gráfico atualiza a cada 2.5s
-✔ Histórico funcionando
-✔ CRUD de autenticação funcionando
+1. ESP32 conectado ao Wi-Fi
+2. IP colocado no .env
+3. Backend online
+4. Front-end acessando API
+5. Buzzer responde no modo silencioso
+6. Gráfico atualiza a cada 2.5s
+7. Histórico funcionando
+8. CRUD de autenticação funcionando
 
 ------------------ LICENÇA ------------------
 -
